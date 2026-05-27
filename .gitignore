@@ -1,0 +1,24 @@
+# .NET Core - Build outputs
+**/bin/
+**/obj/
+
+# Visual Studio
+**/.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET secrets
+appsettings.Development.json
+
+# Angular
+**/node_modules/
+**/dist/
+**/.angular/
+
+# General
+.DS_Store
+.env
+*.local
+Thumbs.db

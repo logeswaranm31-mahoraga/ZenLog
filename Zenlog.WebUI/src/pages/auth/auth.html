@@ -1,0 +1,73 @@
+<div class="auth-shell">
+	<div class="auth-card">
+		<header class="auth-header">
+			<h2>{{ isLoginMode ? 'Welcome Back' : 'Create Account' }}</h2>
+			<p class="muted">{{ isLoginMode ? 'Sign in to continue' : 'Register a new account' }}</p>
+		</header>
+
+		<section class="auth-body">
+			<form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" novalidate>
+				<label>
+					Email
+					<input type="email" formControlName="email" autocomplete="username" />
+				</label>
+				<small class="error" *ngIf="field('email','login').touched && field('email','login').invalid">
+					<span *ngIf="field('email','login').errors?.['required']">Email is required.</span>
+					<span *ngIf="field('email','login').errors?.['email']">Enter a valid email.</span>
+				</small>
+
+				<label>
+					Password
+					<input type="password" formControlName="password" autocomplete="current-password" />
+				</label>
+				<small class="error" *ngIf="field('password','login').touched && field('password','login').invalid">
+					<span *ngIf="field('password','login').errors?.['required']">Password is required.</span>
+					<span *ngIf="field('password','login').errors?.['minlength']">Password must be at least 6 characters.</span>
+				</small>
+
+				<button class="primary" type="submit" [disabled]="submitting">Sign in</button>
+				<p class="switch">Don't have an account? <a class="link-switch" (click)="toggleMode('register')">Register</a></p>
+			</form>
+
+			<form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" novalidate>
+				<label>
+					Full name
+					<input type="text" formControlName="userName" autocomplete="name" />
+				</label>
+				<small class="error" *ngIf="field('userName','register').touched && field('userName','register').invalid">
+					<span *ngIf="field('userName','register').errors?.['required']">Name is required.</span>
+					<span *ngIf="field('userName','register').errors?.['minlength']">Enter at least 2 characters.</span>
+				</small>
+
+				<label>
+					Email
+					<input type="email" formControlName="email" autocomplete="email" />
+				</label>
+				<small class="error" *ngIf="field('email','register').touched && field('email','register').invalid">
+					<span *ngIf="field('email','register').errors?.['required']">Email is required.</span>
+					<span *ngIf="field('email','register').errors?.['email']">Enter a valid email.</span>
+				</small>
+
+				<label>
+					Password
+					<input type="password" formControlName="password" autocomplete="new-password" />
+				</label>
+				<small class="error" *ngIf="field('password','register').touched && field('password','register').invalid">
+					<span *ngIf="field('password','register').errors?.['required']">Password is required.</span>
+					<span *ngIf="field('password','register').errors?.['minlength']">Password must be at least 6 characters.</span>
+				</small>
+
+				<label>
+					Confirm password
+					<input type="password" formControlName="confirmPassword" autocomplete="new-password" />
+				</label>
+				<small class="error" *ngIf="registerForm.touched && registerForm.errors?.['passwordsMismatch']">
+					Passwords do not match.
+				</small>
+
+				<button class="primary" type="submit" [disabled]="submitting">Create account</button>
+				<p class="switch">Already have an account? <a class="link-switch" (click)="toggleMode('login')">Sign in</a></p>
+			</form>
+		</section>
+	</div>
+</div>

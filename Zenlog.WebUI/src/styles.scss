@@ -1,0 +1,22 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+.primary-cust-btn {
+    color: #fff;
+    background-color: #4CAF50;
+    margin: 5px;
+    padding: 3px 16px;
+    border-radius: 16px;
+    border: none;
+}
+
+.secondary-cust-btn {
+    color: #4CAF50;
+    background-color: #fff;
+    margin: 5px;
+    padding: 3px 16px;
+    border-radius: 16px;
+    border: none;
+}
+
+.wd-fit {
+    width: fit-content;
+}

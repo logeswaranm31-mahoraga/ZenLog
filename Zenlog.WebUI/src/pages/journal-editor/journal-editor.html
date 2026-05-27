@@ -1,0 +1,49 @@
+<div class="journal-editor">
+    <header class="top-bar">
+        <div class="top-bar-content">
+            <button class="secondary-cust-btn" (click)="back()">discard</button>
+            <button class="primary-cust-btn" (click)="save()">done</button>
+        </div>
+    </header>
+
+    <main class="write-page">
+        <div class="entry-header">
+            <div class="date-time-wrapper">
+                <div class="write-date">
+                    <span>{{jouranlData.entryDate | date : 'd'}} </span><span>{{jouranlData.entryDate | date : 'MMM yyyy'}}</span>
+                </div>
+                <div class="write-time">
+                    <span>{{jouranlData.entryDate | date : 'EEEE'}},</span><span>{{jouranlData.entryDate | date : ' h:mm a'}}</span>
+                </div>
+            </div>
+            <mat-form-field appearance="outline" style="display: none;">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="jouranlData.entryDate"
+                    (ngModelChange)="checkToOpenTime(timePicker)">
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="display: none;">
+                <input matInput [ngxTimepicker]="timePicker" [(ngModel)]="selectedTime">
+                <ngx-material-timepicker #timePicker (closed)="setTime($event)"></ngx-material-timepicker>
+            </mat-form-field>
+
+            <button class="edit-btn" (click)="openDatepicker(picker)">
+                <i class="fas fa-pencil-alt"></i>
+            </button>
+            <span class="entry-status-text">Saved at: Apr 29, 2026, 11:40 AM</span>
+        </div>
+        <div class="d-flex moods">
+            @for(mood of moods();track mood){
+            <div (click)="selectMood(mood)" [title]="mood.name" class="mood-item"
+                [ngClass]="mood.id == jouranlData.moodId?'selected-mood':''">
+                {{mood.emoji}}
+            </div>
+            }
+        </div>
+        <div class="entry-content mt-2">
+            <textarea class="textarea-title" placeholder="Title..." rows="1" [(ngModel)]="jouranlData.title"></textarea>
+            <textarea class="textarea-content" placeholder="Write your thoughts here..."
+                [(ngModel)]="jouranlData.content"></textarea>
+            <!-- <div contenteditable="true" id="content-editor"  [innerHtml]="jouranlData.Content" class="textarea-content" data-placeholder="Write your thoughts here..."></div> -->
+        </div>
+    </main>
+</div>

@@ -1,0 +1,129 @@
+.journal-list {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.date-group {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+  padding: 1.25rem;
+}
+
+.group-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.group-label {
+  color: #6b7280;
+  font-size: 0.85rem;
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.group-title {
+  color: #111827;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.group-count {
+  background: #f3f4f6;
+  border-radius: 999px;
+  color: #374151;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.85rem;
+}
+
+.cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  align-items: flex-start;
+  background: #f9fafb;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card-emoji {
+  align-items: center;
+  background: #eef2ff;
+  border-radius: 1rem;
+  display: inline-flex;
+  font-size: 1.5rem;
+  height: 3rem;
+  justify-content: center;
+  min-width: 3rem;
+}
+
+.card-body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.card-header-row {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.card-title {
+  color: #111827;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.card-date {
+  color: #6b7280;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.card-content {
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+.add-btn {
+    position: fixed;
+    bottom: 3rem;
+    right: 3rem;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background-color: #4CAF50;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 12px;
+    border: 1px solid #62be6d;
+    z-index: 9;
+    box-shadow: 1px 3px 6px 1px #898484;
+
+}
+
+.add-btn>div{
+    position: relative;
+    top: 8px;
+    text-align: center;
+}
+
+.add-btn>div>i{
+    margin: auto;
+}
