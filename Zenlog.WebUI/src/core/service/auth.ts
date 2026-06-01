@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { environment } from '../environment/env';
+import { environment } from '../../environment/env';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -30,7 +30,7 @@ export class Authentication {
   logout(): void {
     localStorage.clear();
     this.currentUserSubject.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth']);
   }
 
   get isLoggedIn(): boolean {

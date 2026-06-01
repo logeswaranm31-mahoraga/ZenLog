@@ -1,12 +1,69 @@
 <div class="journal-list">
     <div class="add-btn" (click)="add()"><div><i class="fa-solid fa-plus"></i></div></div>
-  @if(journalGroups().length === 0) {
+
+    
+    @if(isLoading()){
+    <section class="loading-skeleton" aria-busy="true" aria-live="polite">
+      <header class="skeleton-group-header">
+        <div>
+          <div class="skeleton-line skeleton-label short"></div>
+          <div class="skeleton-line skeleton-title medium"></div>
+        </div>
+        <div class="skeleton-line skeleton-count small"></div>
+      </header>
+
+      <div class="cards">
+        <article class="card skeleton-card" aria-hidden="true">
+          <div class="card-emoji skeleton-rect"></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <div class="skeleton-line skeleton-title title"></div>
+              <div class="skeleton-line skeleton-date small"></div>
+            </div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </article>
+
+        <article class="card skeleton-card" aria-hidden="true">
+          <div class="card-emoji skeleton-rect"></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <div class="skeleton-line skeleton-title title"></div>
+              <div class="skeleton-line skeleton-date small"></div>
+            </div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </article>
+
+        <article class="card skeleton-card" aria-hidden="true">
+          <div class="card-emoji skeleton-rect"></div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <div class="skeleton-line skeleton-title title"></div>
+              <div class="skeleton-line skeleton-date small"></div>
+            </div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line"></div>
+            <div class="skeleton-line short"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+    
+    }
+    @else {
+    @if(journalGroups().length === 0) {
     <div class="empty-state">
       <p>No journal entries found.</p>
       <p>Start your first entry by clicking the <strong>+</strong> button.</p>
     </div>
-  }
-  @for(group of journalGroups(); track group){
+    }
+    
+    @for(group of journalGroups(); track group){
     <section class="date-group">
       <header class="group-header">
         <div>
@@ -15,25 +72,26 @@
         </div>
         <span class="group-count">{{group.entries.length}} entries</span>
       </header>
-
+    
       <div class="cards">
         @for(entry of group.entries; track entry){
-          <article class="card">
-            <div class="card-emoji">{{entry.mood}}</div>
-            <div class="card-body">
-              <div class="card-header-row">
-                <h3 class="card-title">{{entry.title}}</h3>
-                <span class="card-date">{{entry.entryDate | date : 'medium'}}</span>
-              </div>
-              <p class="card-content">{{entry.content}}</p>
-              <div class="d-flex align-items-center justify-content-end">
-                <button class="secondary-cust-btn  me-2" (click)="edit(entry)"><i class="fas fa-pencil-alt"></i> Edit</button>
-                <button class="secondary-cust-btn "><i class="fa-solid fa-trash"></i> Delete</button>
-              </div>
+        <article class="card">
+          <div class="card-emoji">{{entry.mood}}</div>
+          <div class="card-body">
+            <div class="card-header-row">
+              <h3 class="card-title">{{entry.title}}</h3>
+              <span class="card-date">{{entry.entryDate | date : 'medium'}}</span>
             </div>
-          </article>
+            <p class="card-content">{{entry.content}}</p>
+            <div class="d-flex align-items-center justify-content-end">
+              <button class="secondary-cust-btn  me-2" (click)="edit(entry)"><i class="fas fa-pencil-alt"></i> Edit</button>
+              <button class="secondary-cust-btn "><i class="fa-solid fa-trash"></i> Delete</button>
+            </div>
+          </div>
+        </article>
         }
       </div>
     </section>
-  }
-</div>
+    }
+    }
+    </div>

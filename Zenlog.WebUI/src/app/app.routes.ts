@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { JournalEditor } from '../pages/journal-editor/journal-editor';
 import { JournalListPage } from '../pages/journal-list-page/journal-list-page';
 import { Auth } from '../pages/auth/auth';
-import { authGuard } from '../service/auth-guard';
+import { authGuard } from '../core/service/auth-guard';
 
 export const routes: Routes = [
      {

@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { Authentication } from '../../service/auth';
+import { Authentication } from '../../core/service/auth';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './auth.scss',
 })
 export class Auth implements OnInit {
-  isLoginMode = true;
+  isLoginMode = signal(true);
   service: Authentication = inject(Authentication);
   router: Router = inject(Router);
   loginForm!: FormGroup;
@@ -27,8 +27,8 @@ export class Auth implements OnInit {
   }
 
   toggleMode(to?: 'login' | 'register') {
-    if (to) this.isLoginMode = to === 'login';
-    else this.isLoginMode = !this.isLoginMode;
+    if (to) this.isLoginMode.set(to === 'login');
+    else this.isLoginMode.set(!this.isLoginMode());
   }
 
   private buildForms() {
@@ -64,10 +64,9 @@ export class Auth implements OnInit {
         this.router.navigate(['journal-list'])
       },
       error: (err) => {
-
+setTimeout(() => (this.submitting = false), 600);
       }
     })
-    console.log('Login payload', payload);
     setTimeout(() => (this.submitting = false), 600);
   }
 
@@ -83,9 +82,11 @@ export class Auth implements OnInit {
     this.service.reginster(payload).subscribe({
       next:(res)=>{
         this.toggleMode('login');
-      }
+      },
+      error:(err=>{
+         setTimeout(() => (this.submitting = false), 600);
+      })
     })
-    console.log('Register payload', payload);
     setTimeout(() => (this.submitting = false), 600);
   }
 

@@ -8,10 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { JournalService } from '../../service/journal';
+import { JournalService } from '../../core/service/journal';
 import { Emotion } from '../../model/JournalModel';
-import { exhaustMap, Subject } from 'rxjs';
-import { Authentication } from '../../service/auth';
+import { exhaustMap, map, Subject } from 'rxjs';
+import { Authentication } from '../../core/service/auth';
+import { FaceRatingIcons } from '../../shared/constants';
 
 @Component({
   selector: 'app-journal-editor',
@@ -83,7 +84,6 @@ export class JournalEditor implements OnInit {
   }
 
   save() {
-    // console.log(this.jouranlData)
     this.saveClick$.next();
   }
 
@@ -99,11 +99,9 @@ export class JournalEditor implements OnInit {
     if (this.jouranlData.entryDate.getDate() != new Date().getDate()) {
       timePicker.open()
     }
-    console.log(this.jouranlData)
   }
 
   setTime(event: any) {
-    console.log(event, this.selectedTime)
     if (this.selectedTime) {
       const [time, modifier] = this.selectedTime.split(' ');
       let [hours, mins] = time.split(':').map(Number);

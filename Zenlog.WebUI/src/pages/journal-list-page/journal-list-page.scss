@@ -127,3 +127,49 @@
 .add-btn>div>i{
     margin: auto;
 }
+
+/* Loading skeleton styles */
+.loading-skeleton {
+  .skeleton-group-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .skeleton-line {
+    background: #e6e7eb;
+    border-radius: 6px;
+    height: 0.9rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    height: 100%;
+    width: 150%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: shimmer 1.2s infinite;
+  }
+
+  .skeleton-label.short { width: 5.5rem; height: 0.8rem; }
+  .skeleton-title.medium { width: 9rem; height: 1.1rem; margin-top: 0.25rem; }
+  .skeleton-count.small { width: 3.2rem; height: 1.1rem; }
+  .skeleton-date.small { width: 5rem; height: 0.9rem; }
+  .skeleton-title.title { width: 50%; height: 1rem; }
+  .skeleton-line.short { width: 40%; }
+
+  .skeleton-card { background: #f6f7f8; }
+  .skeleton-rect { background: #e6e7eb; border-radius: 8px; width: 3rem; height: 3rem; }
+
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(150%); }
+}

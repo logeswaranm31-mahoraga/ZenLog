@@ -1,12 +1,12 @@
 <div class="auth-shell">
 	<div class="auth-card">
 		<header class="auth-header">
-			<h2>{{ isLoginMode ? 'Welcome Back' : 'Create Account' }}</h2>
-			<p class="muted">{{ isLoginMode ? 'Sign in to continue' : 'Register a new account' }}</p>
+			<h2>{{ isLoginMode() ? 'Welcome Back' : 'Create Account' }}</h2>
+			<p class="muted">{{ isLoginMode() ? 'Sign in to continue' : 'Register a new account' }}</p>
 		</header>
 
 		<section class="auth-body">
-			<form *ngIf="isLoginMode" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" novalidate>
+			<form *ngIf="isLoginMode()" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" novalidate>
 				<label>
 					Email
 					<input type="email" formControlName="email" autocomplete="username" />
@@ -29,7 +29,7 @@
 				<p class="switch">Don't have an account? <a class="link-switch" (click)="toggleMode('register')">Register</a></p>
 			</form>
 
-			<form *ngIf="!isLoginMode" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" novalidate>
+			<form *ngIf="!isLoginMode()" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" novalidate>
 				<label>
 					Full name
 					<input type="text" formControlName="userName" autocomplete="name" />

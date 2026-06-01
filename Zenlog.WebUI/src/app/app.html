@@ -1,2 +1,20 @@
+<nav class="app-nav app-{{title()}}">
+    <div class="nav-left">
+        <h3>{{ title() }}</h3>
+    </div>
 
-<router-outlet />
+    @if(user){
+    <div class="nav-right">
+        <div class="user-info">
+            <div class="avatar">{{ ((user.userName || user.username || user.email) + '') | slice:0:1 | uppercase }}</div>
+            <div class="details">
+                <div class="name">{{ (user.userName || user.username || 'User') + '' }}</div>
+                <div class="email">{{ (user.email || '') + '' }}</div>
+            </div>
+        </div>
+        <button class="logout" (click)="logout()">Logout</button>
+    </div>
+    }
+</nav>
+
+<router-outlet></router-outlet>

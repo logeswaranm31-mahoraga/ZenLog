@@ -1,22 +1,65 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
-.primary-cust-btn {
-    color: #fff;
-    background-color: #4CAF50;
-    margin: 5px;
-    padding: 3px 16px;
-    border-radius: 16px;
-    border: none;
+
+/* Theme variables for Zenlog */
+:root{
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    --bg: #f6fbff;
+    --surface: #ffffff;
+    --primary: #2563eb; /* blue-600 */
+    --primary-600: #1e40af;
+    --accent: #ffb86b; /* warm accent */
+    --muted: #6b7280;
+    --text: #0f172a;
+    --card: #f8fbff;
+    --border: #e6eefc;
+    --success: #16a34a;
+    --danger: #ef4444;
 }
 
+html,body{
+    height:100%;
+    margin:0;
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+/* Buttons */
+.primary-cust-btn {
+        color: #fff;
+        background-color: var(--primary);
+        margin: 5px;
+        padding: 6px 16px;
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 1px 0 rgba(16,24,40,0.05);
+}
+
+.primary-cust-btn:hover{ background-color: var(--primary-600); }
+
 .secondary-cust-btn {
-    color: #4CAF50;
-    background-color: #fff;
-    margin: 5px;
-    padding: 3px 16px;
-    border-radius: 16px;
-    border: none;
+        color: var(--primary-600);
+        background-color: var(--surface);
+        margin: 5px;
+        padding: 6px 16px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
 }
 
 .wd-fit {
-    width: fit-content;
+        width: fit-content;
 }
+
+/* Cards and surfaces */
+.card, .panel{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+}
+
+/* Utility */
+.muted{ color: var(--muted); }
+.text-muted{ color: var(--muted); }

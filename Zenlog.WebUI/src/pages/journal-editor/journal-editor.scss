@@ -171,13 +171,14 @@
 }
 
 .mood-item {
-    padding: 1rem;
+    padding: .25rem;
     background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
     border-radius: .5rem;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     cursor: pointer;
     border: 2px solid transparent;
+    font-size: 2.5rem;
 }
 
 .mood-item:hover {
