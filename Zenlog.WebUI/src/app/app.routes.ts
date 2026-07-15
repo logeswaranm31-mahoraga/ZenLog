@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { JournalEditor } from '../pages/journal-editor/journal-editor';
-import { JournalListPage } from '../pages/journal-list-page/journal-list-page';
 import { Auth } from '../pages/auth/auth';
 import { authGuard } from '../core/service/auth-guard';
 
@@ -12,12 +10,12 @@ export const routes: Routes = [
     },
     {
         path:"journal-editor",
-        component:JournalEditor,
+        loadComponent: ()=> import('../pages/journal-editor/journal-editor').then(m=>m.JournalEditor),
         canActivate:[authGuard]
     },
     {
         path:"journal-list",
-        component:JournalListPage,
+        loadComponent: ()=> import('../pages/journal-list-page/journal-list-page').then(m=>m.JournalListPage),
         canActivate:[authGuard]
     },
     {
