@@ -1,20 +1,32 @@
-<nav class="app-nav app-{{title()}}">
-    <div class="nav-left">
-        <h3>{{ title() }}</h3>
-    </div>
+<div class="header-container">
+    <nav class="app-nav app-{{title()}}">
+        <div class="nav-left">
+            <h3>{{ title() }}</h3>
+        </div>
 
-    @if(user){
-    <div class="nav-right">
-        <div class="user-info">
-            <div class="avatar">{{ ((user.userName || user.username || user.email) + '') | slice:0:1 | uppercase }}</div>
-            <div class="details">
-                <div class="name">{{ (user.userName || user.username || 'User') + '' }}</div>
-                <div class="email">{{ (user.email || '') + '' }}</div>
+        @if(user){
+        <div class="nav-right">
+            <div class="user-info" [class.open]="avatarMenuOpen">
+                <div class="avatar" (click)="toggleAvatarMenu()">{{ ((user.userName || user.username || user.email) + '') | slice:0:1 | uppercase }}</div>
+                <div class="details desktop-only">
+                    <div class="name">{{ (user.userName || user.username || 'User') + '' }}</div>
+                    <div class="email">{{ (user.email || '') + '' }}</div>
+                </div>
+                <button class="logout desktop-only" (click)="logout()">Logout</button>
+                @if(avatarMenuOpen){
+                    <div class="mobile-overlay" (click)="toggleAvatarMenu()"></div>
+                    <div class="mobile-side-panel">
+                        <button class="close-panel" (click)="toggleAvatarMenu()">Close</button>
+                        <div class="details">
+                            <div class="name">{{ (user.userName || user.username || 'User') + '' }}</div>
+                            <div class="email">{{ (user.email || '') + '' }}</div>
+                        </div>
+                        <button class="logout" (click)="logout()">Logout</button>
+                    </div>
+                }
             </div>
         </div>
-        <button class="logout" (click)="logout()">Logout</button>
-    </div>
-    }
-</nav>
-
+        }
+    </nav>
+</div>
 <router-outlet></router-outlet>

@@ -12,10 +12,16 @@ import { Authentication } from '../core/service/auth';
 export class App {
   protected readonly title = signal('Zenlog');
   user:any;
+  avatarMenuOpen = false;
+
   constructor(private auth:Authentication){
     this.auth.currentUser$.subscribe((data)=>{
       this.user = data
     })
+  }
+
+  toggleAvatarMenu(): void {
+    this.avatarMenuOpen = !this.avatarMenuOpen;
   }
 
   logout(): void {

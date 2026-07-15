@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { JournalEntry } from '../../model/JournalModel';
+import { JournalBody, JournalEntry } from '../../model/JournalModel';
 import { environment } from '../../environment/env';
 
 @Injectable({
@@ -81,11 +81,17 @@ export class JournalService {
     return this.http.get(this.JournalApiURL + 'Journal/GetMoods');
   }
 
-  getJournalList(id:number): Observable<any> {
-    return this.http.get(this.JournalApiURL + 'Journal/GetAllJournals/'+id)
+  getJournalList(body: JournalBody): Observable<any> {
+    let params = new HttpParams().set('offset', body.offset)
+      .set('limit', body.limit);
+    if (body.month && body.month != 'undefined') params = params.set('month', body.month);
+    if (body.year) params = params.set('year', body.year);
+    if (body.specificDate) params = params.set('specificDate', body.specificDate.toString());
+    return this.http.get(this.JournalApiURL + `Journal/GetAllJournals/${body.id}`, { params })
   }
 
   addOrUpdateJournal(body: any): Observable<any> {
     return this.http.post(this.JournalApiURL + 'Journal/AddOrUpdateJournal', body);
   }
 }
+

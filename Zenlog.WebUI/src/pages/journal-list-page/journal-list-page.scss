@@ -113,7 +113,7 @@
     height: 3.25rem;
     border-radius: 12px;
     border: 1px solid #62be6d;
-    z-index: 9;
+    z-index: 2;
     box-shadow: 1px 3px 6px 1px #898484;
 
 }
@@ -172,4 +172,16 @@
 @keyframes shimmer {
   0% { transform: translateX(0); }
   100% { transform: translateX(150%); }
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+
+  select, input {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
 }

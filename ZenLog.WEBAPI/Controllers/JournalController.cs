@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ZenLogWEBAPI.DTO;
 using ZenLogWEBAPI.Entities;
+using ZenLogWEBAPI.Repository;
 
 namespace ZenLogWEBAPI.Controllers
 {
@@ -10,70 +12,67 @@ namespace ZenLogWEBAPI.Controllers
     [ApiController]
     public class JournalController : ControllerBase
     {
-        private readonly Data.AppDbContext _context;
-        public JournalController(Data.AppDbContext context)
+        private readonly IJournalRepository _journalRepository;
+        public JournalController(IJournalRepository journalRepository)
         {
-            _context = context;
-        }
-        [HttpGet("GetAllJournals/{userId}")]
-        public async Task<IActionResult> GetAllJournals(int userId)
-        {
-            var journals = await _context.Journals.Where(j => j.UserId == userId).Join(_context.Moods, j => j.MoodId, m => m.Id, (j, m) => new JournalEntryDTO
-            {
-                Id = j.Id,
-                Content = j.Content,
-                EntryDate = j.EntryDate,
-                Title = j.Title,
-                MoodId = j.MoodId,
-                Mood = m.Emoji
-            }).ToArrayAsync();
-            return Ok(journals);
+            _journalRepository = journalRepository;
         }
 
+        /// <summary>
+        /// Get Journal data by users and with filters 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <param name="specificDate"></param>
+        /// <returns></returns>
+        [HttpGet("GetAllJournals/{userId}")]
+        public async Task<IActionResult> GetAllJournals(
+        int userId,
+        [FromQuery] int offset = 0,
+        [FromQuery] int limit = 10,
+        [FromQuery] int? month = null,
+        [FromQuery] int? year = null,
+        [FromQuery] DateTime? specificDate = null)
+        {
+            var journals = await _journalRepository.GetAllJournals(userId, offset, limit, month, year, specificDate);
+            return Ok(journals);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("GetMoods")]
+
         public async Task<IActionResult> GetMoods()
         {
-            var moods = await _context.Moods.ToListAsync();
+            var moods = await _journalRepository.GetMoods();
             return Ok(moods);
         }
+
+        /// <summary>
+        /// Add or update journal
+        /// </summary>
+        /// <param name="journal"></param>
+        /// <returns></returns>
 
         [HttpPost("AddOrUpdateJournal")]
         public async Task<IActionResult> AddOrUpdateJournal(JournalDTO journal)
         {
-            if (journal.Id == 0)
+            var data = await _journalRepository.AddOrUpdateJournal(journal);
+            return Ok(data);
+        }
+
+        [HttpDelete("DeleteJournal")]
+        public async Task<IActionResult> DeleteJournal(int id)
+        {
+            var data = await _journalRepository.DeleteJournal(id);
+            if (data)
             {
-                Journal journalData = new Journal()
-                {
-                    Title = journal.Title,
-                    Content = journal.Content,
-                    EntryDate = journal.EntryDate,
-                    MoodId = journal.MoodId,
-                    UserId = journal.UserId
-                };
-                await _context.Journals.AddAsync(journalData);
-                await _context.SaveChangesAsync();
-                return Ok(journal);
-
+                return Ok(  );
             }
-            else
-            {
-                var data = await _context.Journals.FirstOrDefaultAsync(item => item.Id == journal.Id);
-                if (data != null)
-                {
-                   data.Title = journal.Title;
-                    data.Content = journal.Content;
-                    data.EntryDate = journal.EntryDate;
-                    data.MoodId = journal.MoodId;
-                    await _context.SaveChangesAsync();
-                    return Ok(journal);
-
-                }
-                else
-                {
-                    return BadRequest("Data not Found");                
-                }
-
-            }
+            return BadRequest(" delete data not found");
         }
     }
+ 
 }

@@ -20,3 +20,12 @@ export interface Emotion {
   name: string;
   color: string;
 }
+
+export interface JournalBody {
+  id: number,
+  offset: number,
+  limit: number,
+  specificDate?: Date,
+  year?: string,
+  month?: string
+}

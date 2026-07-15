@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ZenLogWEBAPI.Data;
+using ZenLogWEBAPI.Repository;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +20,11 @@ builder.Services.AddCors((options) =>
 });
 });
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
+    options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
+builder.Services.AddScoped<IJournalRepository, JournalRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
