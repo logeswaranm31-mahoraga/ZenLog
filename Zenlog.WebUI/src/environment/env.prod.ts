@@ -1,3 +1,3 @@
 export const environment = {
-    apiurl: 'https://localhost:7133/api/'
+    apiurl: 'https://zenlog-zd9s.onrender.com/api/'
 }
